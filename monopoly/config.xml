@@ -4,261 +4,252 @@
         <id>0</id>
         <name>Start</name>
         <price>0</price>
-        <rent>1500</rent>
+        <rent>1500</rent>           <!-- player will get this amount upon complete round -->
         <type>Banker</type>
     </cell>
     <cell>
         <id>1</id>
         <name>Goa</name>
-        <price></price>
+        <price>3000</price>
         <rent></rent>
-        <type></type>
+        <type>City</type>
         <color>Green</color>
     </cell>
     <cell>
         <id>2</id>
         <name>Shipping</name>
-        <price></price>
+        <price>5500</price>
         <rent></rent>
-        <type></type>
+        <type>Corp</type>
     </cell>
     <cell>
         <id>3</id>
         <name>Bengaluru</name>
-        <price></price>
+        <price>6000</price>
         <rent></rent>
-        <type></type>
+        <type>City</type>
         <color>Green</color>
     </cell>
     <cell>
         <id>4</id>
         <name>Imphal</name>
-        <price></price>
+        <price>2500</price>
         <rent></rent>
-        <type></type>
+        <type>City</type>
         <color>Green</color>
     </cell>
     <cell>
         <id>5</id>
         <name>WealthTax</name>
         <price></price>
-        <rent></rent>
+        <rent>10</rent>
         <type>Tax</type>
     </cell>
     <cell>
         <id>6</id>
         <name>Itanagar</name>
-        <price></price>
+        <price>4000</price>
         <rent></rent>
-        <type></type>
+        <type>City</type>
         <color>Yellow</color>
     </cell>
     <cell>
         <id>7</id>
         <name>Chennai</name>
-        <price></price>
+        <price>7000</price>
         <rent></rent>
-        <type></type>
+        <type>City</type>
         <color>Yellow</color>
     </cell>
     <cell>                              <!-- bottom right corner -->
         <id>8</id>
         <name>RestHouse</name>
         <price>0</price>
-        <rent></rent>
+        <rent>200</rent>
         <type>Banker</type>
     </cell>
     <cell>
         <id>9</id>
         <name>Nagpur</name>
-        <price></price>
+        <price>3500</price>
         <rent></rent>
-        <type></type>
+        <type>City</type>
         <color>Red</color>
     </cell>
     <cell>
         <id>10</id>
         <name>Space</name>
-        <price></price>
+        <price>9000</price>
         <rent></rent>
         <type>Corp</type>
     </cell>
     <cell>
         <id>11</id>
         <name>Delhi</name>
-        <price></price>
+        <price>6500</price>
         <rent></rent>
-        <type></type>
+        <type>City</type>
         <color>Red</color>
     </cell>
     <cell>
         <id>12</id>
         <name>Dehradun</name>
-        <price></price>
+        <price>2500</price>
         <rent></rent>
-        <type></type>
+        <type>City</type>
         <color>Red</color>
     </cell>
     <cell>
         <id>13</id>
         <name>Agra</name>
-        <price></price>
+        <price>3500</price>
         <rent></rent>
-        <type></type>
+        <type>City</type>
         <color>Blue</color>
     </cell>
     <cell>
         <id>14</id>
         <name>Bhopal</name>
-        <price></price>
+        <price>2500</price>
         <rent></rent>
-        <type></type>
+        <type>City</type>
         <color>Blue</color>
     </cell>
     <cell>
         <id>15</id>
         <name>Patna</name>
-        <price></price>
+        <price>1500</price>
         <rent></rent>
-        <type></type>
+        <type>City</type>
         <color>Blue</color>
     </cell>
     <cell>                              <!-- top right corner -->
         <id>16</id>
         <name>Club</name>
         <price>0</price>
-        <rent></rent>
+        <rent>300</rent>
         <type>Banker</type>
     </cell>
     <cell>
         <id>17</id>
         <name>Srinagar</name>
-        <price></price>
+        <price>6500</price>
         <rent></rent>
-        <type></type>
+        <type>City</type>
         <color>Yellow</color>
     </cell>
     <cell>
         <id>18</id>
         <name>Shimla</name>
-        <price></price>
+        <price>3500</price>
         <rent></rent>
-        <type></type>
+        <type>City</type>
         <color>Yellow</color>
     </cell>
     <cell>
         <id>19</id>
         <name>Power</name>
-        <price></price>
+        <price>3500</price>
         <rent></rent>
-        <type></type>
+        <type>Corp</type>
     </cell>
     <cell>
         <id>20</id>
         <name>Transport</name>
-        <price></price>
+        <price>2500</price>
         <rent></rent>
         <type>Corp</type>
     </cell>
     <cell>
         <id>21</id>
         <name>Shillong</name>
-        <price></price>
+        <price>2500</price>
         <rent></rent>
-        <type></type>
+        <type>City</type>
         <color>Yellow</color>
     </cell>
     <cell>
         <id>22</id>
         <name>Chandigarh</name>
-        <price></price>
+        <price>8500</price>
         <rent></rent>
-        <type></type>
+        <type>City</type>
         <color>Green</color>
     </cell>
     <cell>
         <id>23</id>
         <name>Kolkata</name>
-        <price></price>
+        <price>5000</price>
         <rent></rent>
-        <type></type>
+        <type>City</type>
         <color>Green</color>
     </cell>
     <cell>                              <!-- top left corner -->
         <id>24</id>
         <name>Jail</name>
-        <price></price>
-        <rent></rent>
+        <price>0</price>
+        <rent>400</rent>
         <type>Banker</type>
     </cell>
     <cell>
         <id>25</id>
         <name>Jaipur</name>
-        <price></price>
+        <price>3500</price>
         <rent></rent>
-        <type></type>
+        <type>City</type>
         <color>Blue</color>
     </cell>
     <cell>
         <id>26</id>
         <name>Ranchi</name>
-        <price></price>
+        <price>1500</price>
         <rent></rent>
-        <type></type>
+        <type>City</type>
         <color>Blue</color>
     </cell>
     <cell>
         <id>27</id>
         <name>IncomeTax</name>
-        <price></price>
-        <rent></rent>
+        <price>0</price>
+        <rent>20</rent>
         <type>Tax</type>
     </cell>
     <cell>
         <id>28</id>
         <name>Mumbai</name>
-        <price></price>
+        <price>6000</price>
         <rent></rent>
-        <type></type>
+        <type>City</type>
         <color>Red</color>
     </cell>
     <cell>
         <id>29</id>
         <name>Railway</name>
-        <price></price>
+        <price>6000</price>
         <rent></rent>
         <type>Corp</type>
     </cell>
     <cell>
         <id>30</id>
         <name>Airway</name>
-        <price></price>
+        <price>7500</price>
         <rent></rent>
-        <type></type>
+        <type>Corp</type>
     </cell>
     <cell>
         <id>31</id>
         <name>Hyderabad</name>
-        <price></price>
+        <price>4000</price>
         <rent></rent>
-        <type></type>
+        <type>City</type>
         <color>Red</color>
     </cell>
-    <!--
-    <cell>
-        <id></id>
-        <name></name>
-        <price></price>
-        <rent></rent>
-        <type></type>
-    </cell>    
-    -->
 </board>
 <!--
 Red:    Dehradun     Delhi       Nagpur      Mumbai      Hyderabad
 Blue:   Patna        Ranchi      Agra        Jaipur      Bhopal
-Yellow: Chennai      Itanagar    Srinagar    Shimla      Shillong
 Green:  Goa          Imphal      Bengaluru   Chandigarh  Kolkata
+Yellow: Chennai      Itanagar    Srinagar    Shimla      Shillong
 
 Corp:   Space        Shipping    Transport   Power       Railway     Airway
 -->
