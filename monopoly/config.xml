@@ -48,7 +48,7 @@
     <cell>
         <id>6</id>
         <name>Itanagar</name>
-        <price>4000</price>
+        <price>2500</price>
         <rent></rent>
         <type>City</type>
         <color>Yellow</color>
@@ -133,7 +133,7 @@
     <cell>
         <id>17</id>
         <name>Srinagar</name>
-        <price>6500</price>
+        <price>4500</price>
         <rent></rent>
         <type>City</type>
         <color>Yellow</color>
@@ -141,7 +141,7 @@
     <cell>
         <id>18</id>
         <name>Shimla</name>
-        <price>3500</price>
+        <price>3000</price>
         <rent></rent>
         <type>City</type>
         <color>Yellow</color>
@@ -171,7 +171,7 @@
     <cell>
         <id>22</id>
         <name>Chandigarh</name>
-        <price>8500</price>
+        <price>4000</price>
         <rent></rent>
         <type>City</type>
         <color>Green</color>
