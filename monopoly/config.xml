@@ -42,7 +42,7 @@
     <cell>
         <id>5</id>
         <name>WealthTax</name>
-        <price></price>
+        <price>0</price>
         <rent>10</rent>
         <type>Tax</type>
     </cell>
