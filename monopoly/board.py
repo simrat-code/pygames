@@ -10,14 +10,14 @@ class Board():
 
     def parseConfig(self):        
         for event, elem in ET.iterparse(self.conf, events=("end",)):
-            block = {}
+            block = {'owner': 'Banker'}     # initially set owner of each card as 'Banker'
             if elem.tag == "cell":
                 id = elem.find("id")
                 name = elem.find("name")
-                if id and name:
+                if id != None and name != None:
                     # both tag exist and found
                     # append to 'db'
-                    self.db[id] = name
+                    self.db[int(id.text)] = name.text
                 # add all block data to citydb
                 for child in elem:
                     block[child.tag] = child.text
@@ -29,10 +29,12 @@ class Board():
         if color not in gamevalue.cardcolor:
             return
         for name, ele in self.citydb.items():
-            if ele['type'] == 'City' and ele['color'] == color:
+            if ele['type'] in ("City", "Corp") and ele['color'] == color:
                 # since 'rent' is None currently
                 # format string expect string-object and not NoneType
                 # so converting None to empty string
-                print(f'{ele["name"]:12} {ele["price"]:>5} {str(ele["rent"]):>5}')
+                print(f'{ele["name"]:12} {ele["price"]:>5} {str(ele["rent"]):>5} {ele["owner"]:8}')
+
+    
 
 # -- END --

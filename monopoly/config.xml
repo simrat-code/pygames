@@ -21,6 +21,7 @@
         <price>5500</price>
         <rent></rent>
         <type>Corp</type>
+        <color>Black</color>
     </cell>
     <cell>
         <id>3</id>
@@ -82,6 +83,7 @@
         <price>9000</price>
         <rent></rent>
         <type>Corp</type>
+        <color>Black</color>
     </cell>
     <cell>
         <id>11</id>
@@ -152,6 +154,7 @@
         <price>3500</price>
         <rent></rent>
         <type>Corp</type>
+        <color>Black</color>
     </cell>
     <cell>
         <id>20</id>
@@ -159,6 +162,7 @@
         <price>2500</price>
         <rent></rent>
         <type>Corp</type>
+        <color>Black</color>
     </cell>
     <cell>
         <id>21</id>
@@ -228,6 +232,7 @@
         <price>6000</price>
         <rent></rent>
         <type>Corp</type>
+        <color>Black</color>
     </cell>
     <cell>
         <id>30</id>
@@ -235,6 +240,7 @@
         <price>7500</price>
         <rent></rent>
         <type>Corp</type>
+        <color>Black</color>
     </cell>
     <cell>
         <id>31</id>

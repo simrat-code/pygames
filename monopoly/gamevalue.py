@@ -1,3 +1,3 @@
 
-cardcolor = ("Red", "Green", "Blue", "Yellow")
+cardcolor = ("Red", "Green", "Blue", "Yellow", "Black")
 cardtypy = ("City", "Corp", "Banker", "Tax")
