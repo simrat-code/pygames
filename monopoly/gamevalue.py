@@ -1,3 +1,4 @@
 
 cardcolor = ("Red", "Green", "Blue", "Yellow", "Black")
-cardtypy = ("City", "Corp", "Banker", "Tax")
+cardtype = ("City", "Corp", "Banker", "Tax")
+buyable = ("City", "Corp")
