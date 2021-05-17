@@ -1,9 +1,10 @@
 
 class Card():
-    def __init__(self, name, price, rent, isbuildable = False):
+    def __init__(self, name, price, rent, color, isbuildable = False):
         self.name = name
         self.price = price * 1
         self.rent = rent * 1
+        self.color = color
         self.isbuildable = isbuildable
         self.buildings = 1.0
 
@@ -20,8 +21,8 @@ class Card():
   
 
 class City(Card):
-    def __init__(self, name, price, rent):
-        super().__init__(self, name, price, rent, isbuildable = True)
+    def __init__(self, name, price, rent, color):
+        super().__init__(self, name, price, rent, color, isbuildable = True)
 
     def addBuilding(self):
         if self.buildings < 3.0:
