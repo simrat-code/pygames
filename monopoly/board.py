@@ -27,8 +27,9 @@ class Board():
             self._prepareDB(elem)
         print(f'{len(self.db)}')
 
-    def printCity(self, color):
-        print('-'*7 + f' {color} ' + '-'*(16 - len(color)) )
+    def printCityGen(self, color, endchar=" "):
+        print('-'*14 + f' {color} ' + '-'*(17 - len(color)), end=endchar )
+        yield
         if color not in gamevalue.cardcolor:
             return
         for name, ele in self.citydb.items():
@@ -36,11 +37,30 @@ class Board():
                 # since 'rent' is None currently
                 # format string expect string-object and not NoneType
                 # so converting None to empty string
-                print(f'{ele["name"]:12} {ele["price"]:>5} {str(ele["rent"]):>5} {ele["owner"]:8}')
+                print(f'{ele["name"]:12} {ele["price"]:>5} {str(ele["rent"]):>5} {ele["owner"]:8}', end=endchar)
+                yield
+
+    def printCity(self, color):
+        for _ in self.printCityGen(color, '\n'):
+            pass
 
     def printAllCities(self):
-        for c in gamevalue.cardcolor:
-            self.printCity(c)
+        # used less intelligent way to print city detail in tabular format
+        # but its working ;P
+        obj = []
+        for i, color in enumerate(gamevalue.cardcolor):
+            obj.append( self.printCityGen(color, " | ") )
+        for _ in range(6):
+            next(obj[0])
+            next(obj[1])
+            next(obj[2])
+            print('')
+        for _ in range(6):
+            next(obj[4])
+            next(obj[3])
+            print('')
+        next(obj[4])
+        print('')
 
     def fetchCity(self, cityname): return self.citydb[cityname]
 
