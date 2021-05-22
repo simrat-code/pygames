@@ -1,4 +1,5 @@
 
+from card import City
 import xml.etree.ElementTree as ET
 import gamevalue
 
@@ -20,7 +21,9 @@ class Board():
             # add all block data to citydb
             for child in elem:
                 block[child.tag] = child.text
-            self.citydb[name.text] = block
+            # self.citydb[name.text] = block
+            if block['group'] == 'City':
+                self.citydb[name.text] = City(**block)
 
     def parseConfig(self):        
         for event, elem in ET.iterparse(self.conf, events=("end",)):
@@ -33,7 +36,7 @@ class Board():
         if color not in gamevalue.cardcolor:
             return
         for name, ele in self.citydb.items():
-            if ele['type'] in ("City", "Corp") and ele['color'] == color:
+            if ele['group'] in ("City", "Corp") and ele['color'] == color:
                 # since 'rent' is None currently
                 # format string expect string-object and not NoneType
                 # so converting None to empty string

@@ -11,6 +11,8 @@ if __name__ == "__main__":
     myboard.parseConfig()
     myboard.printAllCities()
 
+    myboard.printCity("Red")
+
     red = player.Player("Red")
     blue = player.Player("Blue")
     green = player.Player("Green")
