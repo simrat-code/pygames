@@ -1,61 +1,78 @@
 
 class Card():
     def __init__(self, id, name, price, rent, group, color, isbuildable = False):
-        self.name = name
-        self.price = price * 1
-        self.rent = rent * 1
-        self.color = color
-        self.isbuildable = isbuildable
-        self.buildings = 1.0
+        self.celldb = {
+            'name' : name,
+            'price' : int(price),
+            'rent' : int(rent) if rent else 100,
+            'group' : group,
+            'color' : color,
+            'isbuildable' : isbuildable,
+            'buildings' : 1,
+            'owner' : "Banker"
+        }
 
-    # def setBuildable(self, val=True): self.isbuildable = val
+    def getOwner(self): return self.celldb['owner']
+    def getName(self): return self.celldb['name']
+    def getPrice(self): return self.celldb['price']
+    def getRent(self): return self.celldb['rent'] * self.celldb['buildings']
+    def getGroup(self): return self.celldb['group']
+    def getColor(self): return self.celldb['color']
+    def getBuildings(self): return self.celldb['buildings']
+    def isBuildable(self): return self.celldb['isbuildable']
 
-    def calculateRent(self, dice):
-        if not isinstance(dice, int):
-            print("invalid type to calculateRent")
-            return self.rent
-        if self.isbuildable:
-            # for City
-            return self.rent * self.buildings
-        else:
-            # for Corp
-            return dice * self.rent
-  
+    def getSummary(self):
+        return '{name:12} {price:>5} {rent:>5} {owner:8}'.format(**self.celldb)
+        
 
 class City(Card):
     def __init__(self, id, name, price, rent, group, color):
         super().__init__(id, name, price, rent, group, color, True)
-        # self.setBuildable()
 
     def addBuilding(self):
-        if self.buildings < 3.0:
-            self.buildings += 0.5
+        if self.buildings <= 4:
+            self.buildings += 1
 
 
 class Corp(Card):
-    def __init__(self, name, price, rent):
-        super().__init__(name, price, rent, isbuildable=False)
+    def __init__(self, id, name, price, rent, group, color):
+        super().__init__(id, name, price, rent, group, color, isbuildable=False)
 
 
 class Banker(Card):
-    def __init__(self, name, price, rent, isbuildable):
-        super().__init__(name, price, rent, isbuildable=False)
+    def __init__(self, id, name, price, rent, group, color=None):
+        super().__init__(id, name, price, rent, group, color, isbuildable=False)
 
-    def calculateRent(self, dice):
-        return self.rent
+
+
+class Tax (Card):
+    def __init__(self, id, name, price, rent, group, color=None):
+        super().__init__(id, name, price, rent, group, color, isbuildable=False)
+
+    def getRent(self, dice, playerobj):
+        if (self.name == "IncomeTax"):
+            val = float(playerobj.getIncome()) * 0.1
+            return int(val)
+        elif (self.name == "WealthTax"):
+            val = float(playerobj.getWealth()) * 0.1
+            return int(val)
+        else:
+            return 100
+
 
 if __name__ == "__main__":
     var = 'this {name} has {color} color'
     block = {
         'id': 1,
-        'name': 'Goa',
-        'price': 3000,
-        'rent': 100,
+        'name': 'Chandigarh',
+        'price': 4000,
+        'rent': 300,
         'group': 'City',
         'color': 'Green'
     }
     print(var.format(**block))
     cityobj = City(**block)
-    # print(cityobj.calculateRent(4))
+    print(cityobj.getRent())
+    print(cityobj.getSummary())
 
     

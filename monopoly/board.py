@@ -1,29 +1,28 @@
 
-from card import City
 import xml.etree.ElementTree as ET
 import gamevalue
+
+from card import City
+from card import Corp
+from card import Banker
+from card import Tax
 
 class Board():
     def __init__(self, confname):
         self.conf = confname
         self.db = {}        # {0:"Start", 1:"Goa", ...}
-        self.citydb = {}    # {"Start":{...}, "Goa":{...}, ...}
+        # self.citydb = {}    # {"Start":{...}, "Goa":{...}, ...}
 
     def _prepareDB(self, elem):
-        block = {'owner': 'Banker'}     # initially set owner of each card as 'Banker'
+        block = {}     
         if elem.tag == "cell":
             id = elem.find("id")
-            name = elem.find("name")
-            if id != None and name != None:
-                # both tag exist and found
-                # append to 'db'
-                self.db[int(id.text)] = name.text
-            # add all block data to citydb
-            for child in elem:
-                block[child.tag] = child.text
-            # self.citydb[name.text] = block
-            if block['group'] == 'City':
-                self.citydb[name.text] = City(**block)
+            group = elem.find("group")
+            if id != None and group != None:
+                # 'id' and 'group' tags found and append to 'db'
+                for child in elem:
+                    block[child.tag] = child.text
+                self.db[int(id.text)] = eval(group.text)(**block)
 
     def parseConfig(self):        
         for event, elem in ET.iterparse(self.conf, events=("end",)):
@@ -35,12 +34,12 @@ class Board():
         yield
         if color not in gamevalue.cardcolor:
             return
-        for name, ele in self.citydb.items():
-            if ele['group'] in ("City", "Corp") and ele['color'] == color:
+        for id, obj in self.db.items():
+            if obj.getGroup() in ("City", "Corp") and obj.getColor() == color:
                 # since 'rent' is None currently
                 # format string expect string-object and not NoneType
                 # so converting None to empty string
-                print(f'{ele["name"]:12} {ele["price"]:>5} {str(ele["rent"]):>5} {ele["owner"]:8}', end=endchar)
+                print(obj.getSummary(), end=endchar)
                 yield
 
     def printCity(self, color):
