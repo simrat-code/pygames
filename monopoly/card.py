@@ -1,4 +1,6 @@
 
+from player import Player
+
 class Card():
     def __init__(self, id, name, price, rent, group, color, isbuildable = False):
         self.celldb = {
@@ -15,7 +17,7 @@ class Card():
     def getOwner(self): return self.celldb['owner']
     def getName(self): return self.celldb['name']
     def getPrice(self): return self.celldb['price']
-    def getRent(self): return self.celldb['rent'] * self.celldb['buildings']
+    def getRent(self, obj=None): return self.celldb['rent'] * self.celldb['buildings']
     def getGroup(self): return self.celldb['group']
     def getColor(self): return self.celldb['color']
     def getBuildings(self): return self.celldb['buildings']
@@ -44,6 +46,11 @@ class Corp(Card):
     def __init__(self, id, name, price, rent, group, color):
         super().__init__(id, name, price, rent, group, color, isbuildable=False)
 
+    def getRent(self, obj):
+        """ multiple dice with rent """
+        if not isinstance(obj, Player): return super().getRent()
+        return self.celldb['rent'] * obj.getDice()
+
 
 class Banker(Card):
     def __init__(self, id, name, price, rent, group, color=None):
@@ -55,15 +62,16 @@ class Tax (Card):
     def __init__(self, id, name, price, rent, group, color=None):
         super().__init__(id, name, price, rent, group, color, isbuildable=False)
 
-    def getRent(self, dice, playerobj):
-        if (self.name == "IncomeTax"):
-            val = float(playerobj.getIncome()) * 0.1
-            return int(val)
-        elif (self.name == "WealthTax"):
-            val = float(playerobj.getWealth()) * 0.1
-            return int(val)
+    def getRent(self, playerobj):
+        """ Deduct multiple of 100 """
+        val = 0
+        if (self.celldb['name'] == "IncomeTax"):
+            val = int(float(playerobj.getIncome()) * float(self.celldb['rent'])/100.0 )
+        elif (self.celldb['name'] == "WealthTax"):
+            val = int(float(playerobj.getWealth()) * float(self.celldb['rent'])/100.0 )
         else:
-            return 100
+            pass    # no tax
+        return val if val % 100 == 0 else val - (val / 100)
 
 
 if __name__ == "__main__":

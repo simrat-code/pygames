@@ -11,7 +11,7 @@
         <id>1</id>
         <name>Goa</name>
         <price>3000</price>
-        <rent></rent>
+        <rent>150</rent>
         <group>City</group>
         <color>Green</color>
     </cell>
@@ -19,7 +19,7 @@
         <id>2</id>
         <name>Shipping</name>
         <price>5500</price>
-        <rent></rent>
+        <rent>100</rent>
         <group>Corp</group>
         <color>Black</color>
     </cell>
@@ -27,7 +27,7 @@
         <id>3</id>
         <name>Bengaluru</name>
         <price>6000</price>
-        <rent></rent>
+        <rent>300</rent>
         <group>City</group>
         <color>Green</color>
     </cell>
@@ -35,7 +35,7 @@
         <id>4</id>
         <name>Imphal</name>
         <price>2500</price>
-        <rent></rent>
+        <rent>150</rent>
         <group>City</group>
         <color>Green</color>
     </cell>
@@ -50,7 +50,7 @@
         <id>6</id>
         <name>Itanagar</name>
         <price>2500</price>
-        <rent></rent>
+        <rent>150</rent>
         <group>City</group>
         <color>Yellow</color>
     </cell>
@@ -58,7 +58,7 @@
         <id>7</id>
         <name>Chennai</name>
         <price>7000</price>
-        <rent></rent>
+        <rent>350</rent>
         <group>City</group>
         <color>Yellow</color>
     </cell>
@@ -73,7 +73,7 @@
         <id>9</id>
         <name>Nagpur</name>
         <price>3500</price>
-        <rent></rent>
+        <rent>200</rent>
         <group>City</group>
         <color>Red</color>
     </cell>
@@ -81,7 +81,7 @@
         <id>10</id>
         <name>Space</name>
         <price>9000</price>
-        <rent></rent>
+        <rent>200</rent>
         <group>Corp</group>
         <color>Black</color>
     </cell>
@@ -89,7 +89,7 @@
         <id>11</id>
         <name>Delhi</name>
         <price>6500</price>
-        <rent></rent>
+        <rent>300</rent>
         <group>City</group>
         <color>Red</color>
     </cell>
@@ -97,7 +97,7 @@
         <id>12</id>
         <name>Dehradun</name>
         <price>2500</price>
-        <rent></rent>
+        <rent>150</rent>
         <group>City</group>
         <color>Red</color>
     </cell>
@@ -105,7 +105,7 @@
         <id>13</id>
         <name>Agra</name>
         <price>3500</price>
-        <rent></rent>
+        <rent>200</rent>
         <group>City</group>
         <color>Blue</color>
     </cell>
@@ -113,7 +113,7 @@
         <id>14</id>
         <name>Bhopal</name>
         <price>2500</price>
-        <rent></rent>
+        <rent>150</rent>
         <group>City</group>
         <color>Blue</color>
     </cell>
@@ -121,7 +121,7 @@
         <id>15</id>
         <name>Patna</name>
         <price>1500</price>
-        <rent></rent>
+        <rent>100</rent>
         <group>City</group>
         <color>Blue</color>
     </cell>
@@ -129,14 +129,14 @@
         <id>16</id>
         <name>Club</name>
         <price>0</price>
-        <rent>300</rent>
+        <rent>150</rent>
         <group>Banker</group>
     </cell>
     <cell>
         <id>17</id>
         <name>Srinagar</name>
         <price>4500</price>
-        <rent></rent>
+        <rent>250</rent>
         <group>City</group>
         <color>Yellow</color>
     </cell>
@@ -144,7 +144,7 @@
         <id>18</id>
         <name>Shimla</name>
         <price>3000</price>
-        <rent></rent>
+        <rent>150</rent>
         <group>City</group>
         <color>Yellow</color>
     </cell>
@@ -152,7 +152,7 @@
         <id>19</id>
         <name>Power</name>
         <price>3500</price>
-        <rent></rent>
+        <rent>50</rent>
         <group>Corp</group>
         <color>Black</color>
     </cell>
@@ -160,7 +160,7 @@
         <id>20</id>
         <name>Transport</name>
         <price>2500</price>
-        <rent></rent>
+        <rent>50</rent>
         <group>Corp</group>
         <color>Black</color>
     </cell>
@@ -168,7 +168,7 @@
         <id>21</id>
         <name>Shillong</name>
         <price>2500</price>
-        <rent></rent>
+        <rent>150</rent>
         <group>City</group>
         <color>Yellow</color>
     </cell>
@@ -176,7 +176,7 @@
         <id>22</id>
         <name>Chandigarh</name>
         <price>4000</price>
-        <rent></rent>
+        <rent>250</rent>
         <group>City</group>
         <color>Green</color>
     </cell>
@@ -184,7 +184,7 @@
         <id>23</id>
         <name>Kolkata</name>
         <price>5000</price>
-        <rent></rent>
+        <rent>250</rent>
         <group>City</group>
         <color>Green</color>
     </cell>
@@ -192,14 +192,14 @@
         <id>24</id>
         <name>Jail</name>
         <price>0</price>
-        <rent>400</rent>
+        <rent>300</rent>
         <group>Banker</group>
     </cell>
     <cell>
         <id>25</id>
         <name>Jaipur</name>
         <price>3500</price>
-        <rent></rent>
+        <rent>200</rent>
         <group>City</group>
         <color>Blue</color>
     </cell>
@@ -207,7 +207,7 @@
         <id>26</id>
         <name>Ranchi</name>
         <price>1500</price>
-        <rent></rent>
+        <rent>100</rent>
         <group>City</group>
         <color>Blue</color>
     </cell>
@@ -222,7 +222,7 @@
         <id>28</id>
         <name>Mumbai</name>
         <price>6000</price>
-        <rent></rent>
+        <rent>300</rent>
         <group>City</group>
         <color>Red</color>
     </cell>
@@ -230,7 +230,7 @@
         <id>29</id>
         <name>Railway</name>
         <price>6000</price>
-        <rent></rent>
+        <rent>100</rent>
         <group>Corp</group>
         <color>Black</color>
     </cell>
@@ -238,7 +238,7 @@
         <id>30</id>
         <name>Airway</name>
         <price>7500</price>
-        <rent></rent>
+        <rent>150</rent>
         <group>Corp</group>
         <color>Black</color>
     </cell>
@@ -246,11 +246,12 @@
         <id>31</id>
         <name>Hyderabad</name>
         <price>4000</price>
-        <rent></rent>
+        <rent>250</rent>
         <group>City</group>
         <color>Red</color>
     </cell>
 </board>
+
 <!--
 Red:    Dehradun     Delhi       Nagpur      Mumbai      Hyderabad
 Blue:   Patna        Ranchi      Agra        Jaipur      Bhopal
@@ -258,4 +259,15 @@ Green:  Goa          Imphal      Bengaluru   Chandigarh  Kolkata
 Yellow: Chennai      Itanagar    Srinagar    Shimla      Shillong
 
 Corp:   Space        Shipping    Transport   Power       Railway     Airway
+
+1500  100
+2500  150
+3000  150
+3500  200
+4000  250
+4500  250
+5000  250
+6000  300
+6500  300
+7000  350
 -->

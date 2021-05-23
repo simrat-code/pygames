@@ -8,13 +8,13 @@ class Player(object):
         self.owned = []
         self.income = 12000
         self.wealth = 0
-        self.trip = 0
+        self.trip = 1
         self.pos = 0        # initial position at "Start"
         self.dice = 0
         self.active = True
 
     def printInfo(self):
-        print(f'[{self.name:6}] balance is {self.income} with wealth {self.wealth}')
+        print(f'[{self.name:6}] balance {self.income} property {self.wealth}')
 
     def debit(self, val): 
         self.income -= val
@@ -35,6 +35,7 @@ class Player(object):
     def getName(self): return self.name
     def getPosition(self): return self.pos
     def getDice(self): return self.dice
+    def getTrip(self): return self.trip
     def getIncome(self): return self.income
     def getWealth(self): return self.wealth
 

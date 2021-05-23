@@ -15,11 +15,11 @@ def makeMove(tokenobj, boardobj):
     pos = tokenobj.incrPosition(rolldice())
     cityobj = boardobj.getCellObject(pos)    
     if pos - oldpos <= 0:
-        # credit salary
+        # credit round finish bonus
         tokenobj.credit( boardobj.getCellObject(0).getRent() )
-        print(f'[{tokenobj.getName():6}]', 'points credited')
+        # print(f'[{tokenobj.getName():6}] points credited')
         tokenobj.printInfo()
-    print(f'[{tokenobj.getName():6}]', f'dice roll: {tokenobj.getDice()} | reaches', cityobj.getBelong() )
+    print(f'[{tokenobj.getName():6}] dice: {tokenobj.getDice()} | reaches', cityobj.getBelong(), f'| pos {pos:02}' )
     return pos, cityobj
 
 def play(tokenobj, boardobj):
@@ -38,7 +38,7 @@ def play(tokenobj, boardobj):
     if cityobj.getGroup() in gamevalue.buyable and cityobj.getOwner() == "Banker":
         # ask to buy
         tokenobj.printInfo()
-        choice = input(f'[{tokenobj.getName():6}] buy {cityobj.getName():_>10} for {price} <y/n>:')
+        choice = input(f'[{tokenobj.getName():6}] buy {cityobj.getName():_>10} for {price} <y/n>: ')
         if choice not in ('y', 'Y'): return None, 0
         if tokenobj.checkBalance(price):
             tokenobj.debit(price)
@@ -46,23 +46,26 @@ def play(tokenobj, boardobj):
             tokenobj.addOwned(int(pos))
             cityobj.setOwner(pname)
         else: print(f'[{tokenobj.getName():6}]', 'insufficient balance')
-        # tokenobj.printInfo()
+        boardobj.printAllCities()
+
     elif cityobj.getGroup() == "Tax":
         # calculate tax
-        pass
+        tax = cityobj.getRent(tokenobj)
+        tokenobj.debit(tax)
+    
     elif cityobj.getOwner() == pname:
         print(f'[{tokenobj.getName():6}]', 'its my city')
+    
     else:
         # pay rent to city owner
         print(f'[{tokenobj.getName():6}] paying {cityobj.getRent()} to {cityobj.getOwner()}')
         return payRent(tokenobj, cityobj, boardobj)
-    boardobj.printAllCities()
     return None, 0
     
 def payRent(tokenobj, cityobj, boardobj):
     if not isinstance(tokenobj, Player) or not isinstance(cityobj, Card):
         return None, 0
-    rent = cityobj.getRent()
+    rent = cityobj.getRent(tokenobj)
     while not tokenobj.checkBalance(rent):
         # not sufficient balance, then sell property
         # IF no property left, declare Bankrupt

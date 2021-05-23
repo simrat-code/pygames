@@ -62,7 +62,7 @@ class Board():
             next(obj[3])
             print('')
         next(obj[4])
-        print('\n')
+        print('')
 
     # def fetchCity(self, cityname): return self.citydb[cityname]
 
