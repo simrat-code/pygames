@@ -17,8 +17,6 @@ def makeMove(tokenobj, boardobj):
     if pos - oldpos <= 0:
         # credit round finish bonus
         tokenobj.credit( boardobj.getCellObject(0).getRent() )
-        # print(f'[{tokenobj.getName():6}] points credited')
-        tokenobj.printInfo()
     print(f'[{tokenobj.getName():6}] dice: {tokenobj.getDice()} | reaches', cityobj.getBelong(), f'| pos {pos:02}' )
     return pos, cityobj
 
@@ -35,7 +33,12 @@ def play(tokenobj, boardobj):
     pname = tokenobj.getName()
     pos, cityobj = makeMove(tokenobj, boardobj)
     price = cityobj.getPrice()
-    if cityobj.getGroup() in gamevalue.buyable and cityobj.getOwner() == "Banker":
+    
+    if cityobj.getName() == "Start":
+        # points already credited, do nothing
+        pass
+    
+    elif cityobj.getGroup() in gamevalue.buyable and cityobj.getOwner() == "Banker":
         # ask to buy
         tokenobj.printInfo()
         choice = input(f'[{tokenobj.getName():6}] buy {cityobj.getName():_>10} for {price} <y/n>: ')
@@ -58,7 +61,7 @@ def play(tokenobj, boardobj):
     
     else:
         # pay rent to city owner
-        print(f'[{tokenobj.getName():6}] paying {cityobj.getRent()} to {cityobj.getOwner()}')
+        print(f'[{tokenobj.getName():6}] paying {cityobj.getRent(tokenobj)} to {cityobj.getOwner()}')
         return payRent(tokenobj, cityobj, boardobj)
     return None, 0
     

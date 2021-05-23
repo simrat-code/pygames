@@ -28,7 +28,7 @@ class Player(object):
     def addOwned(self, index): self.owned.append(index)
     def delOwned(self, index): self.owned.remove(index)
     def isOwned(self, index): return index in self.owned
-    def checkBalance(self, val): return self.income > val
+    def checkBalance(self, val): return self.income >= val
     def isActive(self): return self.active
     def declareBankrupt(self): self.active = False
 

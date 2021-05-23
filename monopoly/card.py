@@ -71,7 +71,7 @@ class Tax (Card):
             val = int(float(playerobj.getWealth()) * float(self.celldb['rent'])/100.0 )
         else:
             pass    # no tax
-        return val if val % 100 == 0 else val - (val / 100)
+        return 0 if val < 100 else val - (val % 100)
 
 
 if __name__ == "__main__":
