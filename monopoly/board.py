@@ -36,9 +36,6 @@ class Board():
             return
         for id, obj in self.db.items():
             if obj.getGroup() in ("City", "Corp") and obj.getColor() == color:
-                # since 'rent' is None currently
-                # format string expect string-object and not NoneType
-                # so converting None to empty string
                 print(obj.getSummary(), end=endchar)
                 yield
 
@@ -64,11 +61,11 @@ class Board():
         next(obj[4])
         print('')
 
-    def fetchCity(self, cityname): return self.citydb[cityname]
+    # def fetchCity(self, cityname): return self.citydb[cityname]
 
-    def getCellName(self, val): return self.db[val]
+    def getCellObject(self, index): return self.db[index]
 
-    def setOwner(self, cityname, pname): self.citydb[cityname]["owner"] = pname
+    def setOwner(self, index, pname): self.db[index].setOwner(pname)
 
     def printBoard(self):
         pass

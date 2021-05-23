@@ -6,41 +6,40 @@ def rolldice():
     return random.randint(1, 6)
 
 def makeMove(tokenobj, boardobj):
+    """ Returns cityobj """
     oldpos = tokenobj.getPosition()
-    val = rolldice()
-    tokenobj.incrPosition(val)
-    pos = tokenobj.getPosition()
-    cityname = boardobj.getCellName(pos)
-    city = boardobj.fetchCity(cityname)
+    pos = tokenobj.incrPosition(rolldice())
+    cityobj = boardobj.getCellObject(pos)
+    # cityname = cityobj.getName()
+    # city = boardobj.fetchCity(cityname)
     if pos - oldpos <= 0:
         # credit salary
-        tokenobj.credit(int( boardobj.fetchCity("Start")["rent"] ) )
-        print('points credited')
+        tokenobj.credit( boardobj.getCellObject(0).getRent() )
+        print(f'[{tokenobj.getName():6}]', 'points credited')
         tokenobj.printInfo()
-    # print status update
-    print(f'dice roll: {val} |', end=' ')
-    print(f'{tokenobj.getName()} reaches {cityname:x>10} belongs to {city["owner"]:x>6} with rent {city["rent"]}')
-    return city
+    print(f'[{tokenobj.getName():6}]', f'dice roll: {tokenobj.getDice()} | reaches', cityobj.getBelong() )
+    return cityobj
 
 def play(tokenobj, boardobj):
     pname = tokenobj.getName()
-    city = makeMove(tokenobj, boardobj)
-    price = int(city["price"])
-    if city["type"] in gamevalue.buyable and city["owner"] == "Banker":
+    cityobj = makeMove(tokenobj, boardobj)
+    price = cityobj.getPrice()
+    if cityobj.getGroup() in gamevalue.buyable and cityobj.getOwner() == "Banker":
         # ask to buy
         tokenobj.printInfo()
-        choice = input(f'do you wish to buy {city["name"]:x>10} for {price} <y/n>:')
+        choice = input(f'[{tokenobj.getName():6}] do you wish to buy {cityobj.getName():_>10} for {price} <y/n>:')
         if choice not in ('y', 'Y'): return
         if tokenobj.checkBalance(price):
             tokenobj.debit(price)
             tokenobj.addWealth(price)
-            boardobj.setOwner(city["name"], pname)
-        tokenobj.printInfo()
-    elif city["type"] == "Tax":
+            cityobj.setOwner(pname)
+        else: print(f'[{tokenobj.getName():6}]', 'insufficient balance')
+        # tokenobj.printInfo()
+    elif cityobj.getGroup() == "Tax":
         # calculate tax
         pass
-    elif city["owner"] == pname:
-        print(f'its my city')
+    elif cityobj.getOwner() == pname:
+        print(f'[{tokenobj.getName():6}]', 'its my city')
     else:
         # pay rent to city owner
         pass

@@ -20,10 +20,11 @@ if __name__ == "__main__":
 
     turn=0
     try:
-        while turn < 10:
-            var = input(f"{turn} enter to continue: ")
+        while turn < 12:
+            # var = input(f"{turn} enter to continue: ")
             turn += 1
-            city = utils.play(red, myboard)
+            utils.play(red, myboard)
+            utils.play(green, myboard)
     except KeyboardInterrupt as e:
         print('\ncaught user interrupt Ctrl+C, exiting...')
 
