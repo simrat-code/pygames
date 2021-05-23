@@ -11,20 +11,31 @@ if __name__ == "__main__":
     myboard.parseConfig()
     myboard.printAllCities()
 
-    myboard.printCity("Red")
-
+    banker = player.Player("Banker")    # required to collect Tax and Fees
     red = player.Player("Red")
     blue = player.Player("Blue")
     green = player.Player("Green")
     yellow = player.Player("Yellow")
-
+    participants = (red, green)
     turn=0
     try:
         while turn < 12:
             # var = input(f"{turn} enter to continue: ")
             turn += 1
-            utils.play(red, myboard)
-            utils.play(green, myboard)
+            gameover = 0
+            for token in participants:
+                if not token.isActive(): continue
+                gameover += 1
+                owner, amount = utils.play(token, myboard)
+                if owner: eval(owner.lower()).credit(amount)
+            # IF only one player is left, declare it winner
+            if gameover <= 1: break
+
+        for x in participants:
+            if x.isActive: 
+                x.printInfo()
+                print(f'Winner is {x.getName()} !!!')
+                break
     except KeyboardInterrupt as e:
         print('\ncaught user interrupt Ctrl+C, exiting...')
 

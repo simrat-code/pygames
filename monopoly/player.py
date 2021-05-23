@@ -11,6 +11,7 @@ class Player(object):
         self.trip = 0
         self.pos = 0        # initial position at "Start"
         self.dice = 0
+        self.active = True
 
     def printInfo(self):
         print(f'[{self.name:6}] balance is {self.income} with wealth {self.wealth}')
@@ -19,6 +20,8 @@ class Player(object):
     def credit(self, val): self.income += val
     def addWealth(self, val): self.wealth += val
     def checkBalance(self, val): return self.income > val
+    def isActive(self): return self.active
+    def declareBankrupt(self): self.active = False
 
     def getName(self): return self.name
     def getPosition(self): return self.pos
