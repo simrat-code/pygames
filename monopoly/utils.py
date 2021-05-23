@@ -26,6 +26,9 @@ def play(tokenobj, boardobj):
     """ Return city-owner and rent
     if current play step-on others property.
     else it will return (None, 0)
+    inside 'runme.py', bank will credit the points to owner
+    since 'tokenobj' points to current player and do not have owner's object to call credit()
+    currently, Card.owner is string type and not object of Player-class
     """
     if not isinstance(tokenobj, Player): return None, 0
     if not isinstance(boardobj, Board): return None, 0
@@ -35,11 +38,12 @@ def play(tokenobj, boardobj):
     if cityobj.getGroup() in gamevalue.buyable and cityobj.getOwner() == "Banker":
         # ask to buy
         tokenobj.printInfo()
-        choice = input(f'[{tokenobj.getName():6}] do you wish to buy {cityobj.getName():_>10} for {price} <y/n>:')
+        choice = input(f'[{tokenobj.getName():6}] buy {cityobj.getName():_>10} for {price} <y/n>:')
         if choice not in ('y', 'Y'): return None, 0
         if tokenobj.checkBalance(price):
             tokenobj.debit(price)
             tokenobj.addWealth(price)
+            tokenobj.addOwned(int(pos))
             cityobj.setOwner(pname)
         else: print(f'[{tokenobj.getName():6}]', 'insufficient balance')
         # tokenobj.printInfo()
@@ -50,19 +54,12 @@ def play(tokenobj, boardobj):
         print(f'[{tokenobj.getName():6}]', 'its my city')
     else:
         # pay rent to city owner
-        # rent = cityobj.getRent()
-        # print(f'[{tokenobj.getName():6}] paying {rent} to {cityobj.getOwner()}')
-        # if tokenobj.checkBalance(rent):
-        #     tokenobj.debit(rent)
-        # else:
-        #     # need to sell some property
-        #     pass
-        # return cityobj.getOwner(), rent
-        return payRent(tokenobj, cityobj)
+        print(f'[{tokenobj.getName():6}] paying {cityobj.getRent()} to {cityobj.getOwner()}')
+        return payRent(tokenobj, cityobj, boardobj)
     boardobj.printAllCities()
     return None, 0
     
-def payRent(tokenobj, cityobj):
+def payRent(tokenobj, cityobj, boardobj):
     if not isinstance(tokenobj, Player) or not isinstance(cityobj, Card):
         return None, 0
     rent = cityobj.getRent()
@@ -76,11 +73,20 @@ def payRent(tokenobj, cityobj):
             tokenobj.declareBankrupt()
             break
         else:
-            saleProperty(tokenobj)
+            saleProperty(tokenobj, boardobj)
     
     tokenobj.debit(rent)
     return cityobj.getOwner(), rent
     # return None, 0
 
-def saleProperty(tokenobj):
-    if not isinstance(tokenobj, Player): return
+def saleProperty(tokenobj, boardobj):
+    if not isinstance(tokenobj, Player) or not isinstance(boardobj, Board): return
+    for index in tokenobj.parseOwnedGen():
+        boardobj.printCitySaleInfo(index)
+    try:
+        choice = int(input('enter city index to sale: '))
+        if not tokenobj.isOwned(choice): return
+        tokenobj.credit( boardobj.saleCard(choice))
+        tokenobj.delOwned(choice)
+    except:
+        pass

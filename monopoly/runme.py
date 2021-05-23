@@ -16,16 +16,17 @@ if __name__ == "__main__":
     blue = player.Player("Blue")
     green = player.Player("Green")
     yellow = player.Player("Yellow")
-    participants = (red, green)
+    participants = (red, green, blue)
     turn=0
     try:
-        while turn < 12:
+        while True:
             # var = input(f"{turn} enter to continue: ")
             turn += 1
             gameover = 0
             for token in participants:
                 if not token.isActive(): continue
                 gameover += 1
+                var = input(f"[{token.getName():6}] {turn} enter to continue: ")
                 owner, amount = utils.play(token, myboard)
                 if owner: eval(owner.lower()).credit(amount)
             # IF only one player is left, declare it winner

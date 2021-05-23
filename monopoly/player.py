@@ -16,9 +16,18 @@ class Player(object):
     def printInfo(self):
         print(f'[{self.name:6}] balance is {self.income} with wealth {self.wealth}')
 
-    def debit(self, val): self.income -= val
-    def credit(self, val): self.income += val
+    def debit(self, val): 
+        self.income -= val
+        print(f'[{self.name:6}] debit  {val:03}, balance {self.income}')
+
+    def credit(self, val): 
+        self.income += val
+        print(f'[{self.name:6}] credit {val:03}, balance {self.income}')
+    
     def addWealth(self, val): self.wealth += val
+    def addOwned(self, index): self.owned.append(index)
+    def delOwned(self, index): self.owned.remove(index)
+    def isOwned(self, index): return index in self.owned
     def checkBalance(self, val): return self.income > val
     def isActive(self): return self.active
     def declareBankrupt(self): self.active = False
@@ -29,6 +38,9 @@ class Player(object):
     def getIncome(self): return self.income
     def getWealth(self): return self.wealth
 
+    def parseOwnedGen(self): 
+        for val in self.owned: yield val 
+    
     def incrPosition(self, val): 
         self.dice = val
         if (self.pos + val >= 32): self.trip += 1

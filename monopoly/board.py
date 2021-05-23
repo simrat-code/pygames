@@ -2,7 +2,7 @@
 import xml.etree.ElementTree as ET
 import gamevalue
 
-from card import City
+from card import Card, City
 from card import Corp
 from card import Banker
 from card import Tax
@@ -43,6 +43,9 @@ class Board():
         for _ in self.printCityGen(color, '\n'):
             pass
 
+    def printCitySaleInfo(self, index):
+        print(self.db[index].getSaleInfo())
+
     def printAllCities(self):
         # used less intelligent way to print city detail in tabular format
         # but its working ;P
@@ -59,7 +62,7 @@ class Board():
             next(obj[3])
             print('')
         next(obj[4])
-        print('')
+        print('\n')
 
     # def fetchCity(self, cityname): return self.citydb[cityname]
 
@@ -70,5 +73,14 @@ class Board():
     def printBoard(self):
         pass
     
+    def saleCard(self, index):
+        """ Return property value """
+        # set owner back to "Banker"
+        obj = self.db[index]
+        if not isinstance(obj, Card): return 0
+        amount = 1000 * (obj.getBuildings() - 1)
+        amount += obj.getPrice()
+        obj.reset()
+        return amount
 
 # -- END --

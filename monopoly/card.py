@@ -23,8 +23,12 @@ class Card():
 
     def getSummary(self): return '{name:12} {price:>5} {rent:>5} {owner:8}'.format(**self.celldb)
     def getBelong(self): return '{name:_>10} belongs to {owner:>6} with rent {rent}'.format(**self.celldb)
+    def getSaleInfo(self): return '{id:>2} {name:12} {price:>5} {rent:>5} {buildings}'.format(**self.celldb)
 
     def setOwner(self, owner): self.celldb['owner'] = owner
+    def reset(self):
+        self.celldb['buildings'] = 1
+        self.celldb['owner'] = "Banker"
         
 
 class City(Card):
