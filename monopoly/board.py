@@ -7,13 +7,15 @@ from card import Corp
 from card import Banker
 from card import Tax
 
+from player import Player
+
 class Board():
     def __init__(self, confname):
         self.conf = confname
         self.db = {}        # {0:"Start", 1:"Goa", ...}
-        # self.citydb = {}    # {"Start":{...}, "Goa":{...}, ...}
 
-    def _prepareDB(self, elem):
+    def _prepareDB(self, elem, obj):
+        if not isinstance(obj, Player): raise "Bad argument"
         block = {}     
         if elem.tag == "cell":
             id = elem.find("id")
@@ -23,10 +25,11 @@ class Board():
                 for child in elem:
                     block[child.tag] = child.text
                 self.db[int(id.text)] = eval(group.text)(**block)
+                self.db[int(id.text)].setOwnerObj(obj)
 
     def parseConfig(self):        
         for event, elem in ET.iterparse(self.conf, events=("end",)):
-            self._prepareDB(elem)
+            self._prepareDB(elem, Player("Banker"))
         print(f'{len(self.db)}')
 
     def printCityGen(self, color, endchar=" "):
@@ -64,8 +67,6 @@ class Board():
         next(obj[4])
         print('')
 
-    # def fetchCity(self, cityname): return self.citydb[cityname]
-
     def getCellObject(self, index): return self.db[index]
 
     def setOwner(self, index, pname): self.db[index].setOwner(pname)
@@ -74,13 +75,13 @@ class Board():
         pass
     
     def saleCard(self, index):
-        """ Return property value """
+        """ Return property value and reset """
         # set owner back to "Banker"
-        obj = self.db[index]
-        if not isinstance(obj, Card): return 0
-        amount = 1000 * (obj.getBuildings() - 1)
-        amount += obj.getPrice()
-        obj.reset()
+        cityobj = self.db[index]
+        if not isinstance(cityobj, Card): return 0
+        amount = 1000 * (cityobj.getBuildings() - 1)
+        amount += cityobj.getPrice()
+        cityobj.reset(self.db[0].getOwnerObj())        # 'Start' is always owned by Banker
         return amount
 
 # -- END --

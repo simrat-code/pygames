@@ -4,6 +4,7 @@ from player import Player
 class Card():
     def __init__(self, id, name, price, rent, group, color, isbuildable = False):
         self.celldb = {
+            'id' : id,
             'name' : name,
             'price' : int(price),
             'rent' : int(rent) if rent else 100,
@@ -11,10 +12,12 @@ class Card():
             'color' : color,
             'isbuildable' : isbuildable,
             'buildings' : 1,
-            'owner' : "Banker"
+            'owner' : None,
+            'ownerobj' : None
         }
 
-    def getOwner(self): return self.celldb['owner']
+    def getOwnerObj(self): return self.celldb['ownerobj']
+    def getOwnerName(self): return self.celldb['owner']
     def getName(self): return self.celldb['name']
     def getPrice(self): return self.celldb['price']
     def getRent(self, obj=None): return self.celldb['rent'] * self.celldb['buildings']
@@ -27,10 +30,14 @@ class Card():
     def getBelong(self): return '{name:_>10} belongs to {owner:>6} with rent {rent}'.format(**self.celldb)
     def getSaleInfo(self): return '{id:>2} {name:12} {price:>5} {rent:>5} {buildings}'.format(**self.celldb)
 
-    def setOwner(self, owner): self.celldb['owner'] = owner
-    def reset(self):
+    def setOwnerObj(self, obj): 
+        self.celldb['ownerobj'] = obj
+        self.celldb['owner'] = obj.getName()
+        
+    def reset(self, ownerobj):
         self.celldb['buildings'] = 1
-        self.celldb['owner'] = "Banker"
+        self.celldb['ownerobj'] = ownerobj
+        self.celldb['owner'] = ownerobj.getName()
         
 
 class City(Card):

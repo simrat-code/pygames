@@ -27,8 +27,7 @@ if __name__ == "__main__":
                 if not token.isActive(): continue
                 gameover += 1
                 var = input(f"\n[{token.getName():6}] trip {token.getTrip()} round {turn}  press enter: ")
-                owner, amount = utils.play(token, myboard)
-                if owner: eval(owner.lower()).credit(amount)
+                utils.play(token, myboard)
             # IF only one player is left, declare it winner
             if gameover <= 1: break
 
