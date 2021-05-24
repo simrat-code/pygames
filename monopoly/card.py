@@ -27,13 +27,13 @@ class Card():
     def isBuildable(self): return self.celldb['isbuildable']
 
     def getSummary(self): return '{name:12} {price:>5} {rent:>5} {owner:8}'.format(**self.celldb)
-    def getBelong(self): return '{name:_>10} belongs to {owner:>6} with rent {rent}'.format(**self.celldb)
+    def getBelong(self): return '{name:^10} belongs to {owner:>6} with rent {rent:03}'.format(**self.celldb)
     def getSaleInfo(self): return '{id:>2} {name:12} {price:>5} {rent:>5} {buildings}'.format(**self.celldb)
 
     def setOwnerObj(self, obj): 
         self.celldb['ownerobj'] = obj
         self.celldb['owner'] = obj.getName()
-        
+
     def reset(self, ownerobj):
         self.celldb['buildings'] = 1
         self.celldb['ownerobj'] = ownerobj

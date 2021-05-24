@@ -30,7 +30,8 @@ def play(tokenobj, boardobj):
     """
     if not isinstance(tokenobj, Player): return 
     if not isinstance(boardobj, Board): return 
-    # pname = tokenobj.getName()
+    boardobj.printAllCities()
+    print('')
     pos, cityobj = makeMove(tokenobj, boardobj)
     if not isinstance(cityobj, Card): return 
     price = cityobj.getPrice()
@@ -42,7 +43,7 @@ def play(tokenobj, boardobj):
     elif cityobj.getGroup() in gamevalue.buyable and cityobj.getOwnerName() == "Banker":
         # ask to buy
         tokenobj.printInfo()
-        choice = input(f'[{tokenobj.getName():6}] buy {cityobj.getName():_>10} for {price} <y/n>: ')
+        choice = input(f'[{tokenobj.getName():6}] buy {cityobj.getName():^10} for {price} <y/n>: ')
         if choice not in ('y', 'Y'): return 
         if tokenobj.checkBalance(price):
             tokenobj.debit(price)
@@ -50,7 +51,6 @@ def play(tokenobj, boardobj):
             tokenobj.addOwned(int(pos))
             cityobj.setOwnerObj(tokenobj)
         else: print(f'[{tokenobj.getName():6}]', 'insufficient balance')
-        boardobj.printAllCities()
 
     elif cityobj.getGroup() == "Tax":
         # calculate tax
@@ -63,7 +63,6 @@ def play(tokenobj, boardobj):
     else:
         # pay rent to city owner
         payRent(tokenobj, cityobj, boardobj)
-    # return None, 0
     
 def payRent(tokenobj, cityobj, boardobj):
     if not isinstance(tokenobj, Player) or not isinstance(cityobj, Card):

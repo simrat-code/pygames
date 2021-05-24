@@ -8,10 +8,10 @@ import utils
 
 if __name__ == "__main__":
     myboard = board.Board('config.xml')
-    myboard.parseConfig()
+    banker = player.Player("Banker")    # required to collect Tax and Fees
+    myboard.parseConfig(banker)
     myboard.printAllCities()
 
-    banker = player.Player("Banker")    # required to collect Tax and Fees
     red = player.Player("Red")
     blue = player.Player("Blue")
     green = player.Player("Green")

@@ -27,9 +27,9 @@ class Board():
                 self.db[int(id.text)] = eval(group.text)(**block)
                 self.db[int(id.text)].setOwnerObj(obj)
 
-    def parseConfig(self):        
-        for event, elem in ET.iterparse(self.conf, events=("end",)):
-            self._prepareDB(elem, Player("Banker"))
+    def parseConfig(self, bankerobj):    
+        for _, elem in ET.iterparse(self.conf, events=("end",)):
+            self._prepareDB(elem, bankerobj)
         print(f'{len(self.db)}')
 
     def printCityGen(self, color, endchar=" "):
