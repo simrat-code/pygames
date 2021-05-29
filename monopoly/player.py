@@ -1,12 +1,12 @@
 
-from utils import getColorText
+from utils import colorText
 from typing import Counter
 
 
 class Player(object):
     def __init__(self, name):
         self.name = name
-        self.cname = getColorText(name, name)
+        self.cname = colorText(name, name)
         self.owned = []
         self.income = 12000
         self.wealth = 0

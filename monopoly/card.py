@@ -31,10 +31,12 @@ class Card():
     def getSaleInfo(self): return '{id:>2} {name:12} {price:>5} {rent:>5} {buildings}'.format(**self.celldb)
 
     def setOwnerObj(self, obj): 
+        if not isinstance(obj, Player): return
         self.celldb['ownerobj'] = obj
         self.celldb['owner'] = obj.getName()
 
     def reset(self, ownerobj):
+        if not isinstance(ownerobj, Player): return
         self.celldb['buildings'] = 1
         self.celldb['ownerobj'] = ownerobj
         self.celldb['owner'] = ownerobj.getName()
