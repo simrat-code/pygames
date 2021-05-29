@@ -1,12 +1,11 @@
 
-from utils import colorText
 from typing import Counter
+from utils import highlighter
 
 
 class Player(object):
     def __init__(self, name):
         self.name = name
-        self.cname = colorText(name, name)
         self.owned = []
         self.income = 12000
         self.wealth = 0
@@ -16,15 +15,27 @@ class Player(object):
         self.active = True
 
     def printInfo(self):
-        print(f'[{self.cname:6}] balance {self.income} property {self.wealth}')
+        print(
+            highlighter(
+                f'[{self.name:6}] balance {self.income} property {self.wealth}'
+            )
+        )
 
     def debit(self, val): 
         self.income -= val
-        print(f'[{self.cname:6}] debit  {val:03}, balance {self.income}')
+        print(
+            highlighter(
+                f'[{self.name:6}] debit  {val:03}, balance {self.income}'
+            )
+        )
 
     def credit(self, val): 
         self.income += val
-        print(f'[{self.cname:6}] credit {val:03}, balance {self.income}')
+        print(
+            highlighter(
+                f'[{self.name:6}] credit {val:03}, balance {self.income}'
+            )
+        )
     
     def addWealth(self, val): self.wealth += val
     def addOwned(self, index): self.owned.append(index)
@@ -35,7 +46,6 @@ class Player(object):
     def declareBankrupt(self): self.active = False
 
     def getName(self): return self.name
-    def getNameC(self): return self.cname
     def getPosition(self): return self.pos
     def getDice(self): return self.dice
     def getTrip(self): return self.trip

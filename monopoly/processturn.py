@@ -5,16 +5,21 @@ from player import Player
 from board import Board
 from card import Card
 from utils import rolldice
+from utils import highlighter
 
 def makeMove(tokenobj, boardobj):
     """ Returns pos and Card """
     oldpos = tokenobj.getPosition()
     pos = tokenobj.incrPosition(rolldice())
-    cityobj = boardobj.getCellObject(pos)    
+    cityobj = boardobj.getCellObject(pos)
+    print(  
+        highlighter(f'[{tokenobj.getName():6}] {tokenobj.getPosition():02} | '
+            f'dice: {tokenobj.getDice()} | reaches {cityobj.getBelong()}'
+        ) 
+    )    
     if pos - oldpos <= 0:
         # credit round finish bonus
         tokenobj.credit( boardobj.getCellObject(0).getRent() )
-    print(f'[{tokenobj.getNameC():6}] dice: {tokenobj.getDice()} | reaches', cityobj.getBelong(), f'| pos {pos:02}' )
     return pos, cityobj
 
 def play(tokenobj, boardobj):
@@ -40,14 +45,22 @@ def play(tokenobj, boardobj):
     elif cityobj.getGroup() in gamevalue.buyable and cityobj.getOwnerName() == "Banker":
         # ask to buy
         tokenobj.printInfo()
-        choice = input(f'[{tokenobj.getNameC():6}] buy {cityobj.getName():^10} for {price} <y/n>: ')
+        choice = input(
+            highlighter(
+                f'[{tokenobj.getName():6}] buy {cityobj.getName():^10} for {price} <y/n>: '
+            )
+        )
         if choice not in ('y', 'Y'): return 
         if tokenobj.checkBalance(price):
             tokenobj.debit(price)
             tokenobj.addWealth(price)
             tokenobj.addOwned(int(pos))
             cityobj.setOwnerObj(tokenobj)
-        else: print(f'[{tokenobj.getNameC():6}]', 'insufficient balance')
+        else: print(
+            highlighter(
+                f'[{tokenobj.getName():6}] insufficient balance'
+            )
+        )
 
     elif cityobj.getGroup() == "Tax":
         # calculate tax
@@ -55,7 +68,11 @@ def play(tokenobj, boardobj):
         tokenobj.debit(tax)
     
     elif cityobj.getOwnerObj() is tokenobj:
-        print(f'[{tokenobj.getNameC():6}]', 'its my city')
+        print(
+            highlighter(
+                f'[{tokenobj.getName():6}] its my city' 
+            )
+        )
     
     else:
         # pay rent to city owner
@@ -70,7 +87,11 @@ def payRent(tokenobj, cityobj, boardobj):
         # IF no property left, declare Bankrupt
         # and whatever income is left will be paid against standing rent.
         if tokenobj.getWealth() == 0:
-            print(f'[{tokenobj.getNameC():6}] has become bankrupt')
+            print(
+                highlighter(
+                    f'[{tokenobj.getName():6}] has become bankrupt'
+                )
+            )
             rent = tokenobj.getIncome()
             tokenobj.declareBankrupt()
             break

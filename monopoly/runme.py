@@ -4,6 +4,7 @@ import player
 import board
 # import gamevalue
 import processturn
+from utils import highlighter
 
 
 if __name__ == "__main__":
@@ -26,7 +27,12 @@ if __name__ == "__main__":
             for token in participants:
                 if not token.isActive(): continue
                 gameover += 1
-                var = input(f"\n[{token.getNameC():6}] trip {token.getTrip()} round {turn}  press enter: ")
+                vartext = f"[{token.getName():6}] {token.getPosition():02} | " + \
+                    f"trip {token.getTrip()} round {turn}  " + \
+                    f"press enter: "
+                # print(f">{vartext}<")
+                vartext = highlighter(vartext)
+                vartext = input(f"{vartext}")
                 processturn.play(token, myboard)
             # IF only one player is left, declare it winner
             if gameover <= 1: break
@@ -34,7 +40,11 @@ if __name__ == "__main__":
         for x in participants:
             if x.isActive: 
                 x.printInfo()
-                print(f'Winner is {x.getNameC()} !!!')
+                print(
+                    highlighter(
+                        f'Winner is {x.getName()} !!!'
+                    )
+                )
                 break
     except KeyboardInterrupt as e:
         print('\ncaught user interrupt Ctrl+C, exiting...')
