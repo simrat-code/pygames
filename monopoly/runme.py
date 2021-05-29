@@ -1,9 +1,9 @@
 
 import player
-import card
+# import card
 import board
-import gamevalue
-import utils
+# import gamevalue
+import processturn
 
 
 if __name__ == "__main__":
@@ -26,15 +26,15 @@ if __name__ == "__main__":
             for token in participants:
                 if not token.isActive(): continue
                 gameover += 1
-                var = input(f"\n[{token.getName():6}] trip {token.getTrip()} round {turn}  press enter: ")
-                utils.play(token, myboard)
+                var = input(f"\n[{token.getNameC():6}] trip {token.getTrip()} round {turn}  press enter: ")
+                processturn.play(token, myboard)
             # IF only one player is left, declare it winner
             if gameover <= 1: break
 
         for x in participants:
             if x.isActive: 
                 x.printInfo()
-                print(f'Winner is {x.getName()} !!!')
+                print(f'Winner is {x.getNameC()} !!!')
                 break
     except KeyboardInterrupt as e:
         print('\ncaught user interrupt Ctrl+C, exiting...')
