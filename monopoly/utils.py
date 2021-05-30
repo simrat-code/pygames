@@ -1,5 +1,7 @@
 
 import random
+from sys import platform
+
 from gamevalue import termcolorF
 from gamevalue import delimiterlist
 
@@ -13,6 +15,9 @@ def colorText(text, color=None):
     terminal will remove the escape characters and thus resultant string 
     will be smaller than expected
     """
+    # apply only for linux platform
+    if platform != "linux" and platform != "linux2":
+        return text
     # return text without processing 
     # if empty or string with whitespace only has been passed
     if len(text.strip()) == 0: return text
