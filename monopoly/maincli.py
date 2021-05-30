@@ -1,11 +1,13 @@
 
+from time import sleep
+
 import player
 import board
 import processturn
 from utils import highlighter
 from utils import colorText
 
-def printPosition(participants):
+def printPosition(participants, endstring="\n"):
     if not isinstance(participants, tuple): raise TypeError("must pass tuple")
     # print(" "*8, end="")
     for obj in participants:
@@ -16,7 +18,7 @@ def printPosition(participants):
             )
             , end="  "
         )
-    # print("")
+    print(f"{endstring}", end="")
 
 def main():
     myboard = board.Board('config.xml')
@@ -44,7 +46,8 @@ def main():
                     , end=""
                 )
                 printPosition(participants)
-                vartext = input("press enter: ")
+                # vartext = input("press enter: ")
+                sleep(3)
                 processturn.play(token, myboard)
             # IF only one player is left, declare it winner
             if gameover <= 1: break
