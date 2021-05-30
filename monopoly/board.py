@@ -2,12 +2,13 @@
 import xml.etree.ElementTree as ET
 import gamevalue
 
-from card import Card, City
+from card import Card
+from card import City
 from card import Corp
 from card import Banker
 from card import Tax
-
 from player import Player
+from utils import highlighter
 
 class Board():
     def __init__(self, confname):
@@ -33,13 +34,22 @@ class Board():
         print(f'{len(self.db)}')
 
     def printCityGen(self, color, endchar=" "):
-        print('-'*14 + f' {color} ' + '-'*(17 - len(color)), end=endchar )
+        print(
+            #highlighter(
+                '-'*14 + f' {color} ' + '-'*(17 - len(color)) 
+            #)
+            , end=endchar
+        )
         yield
         if color not in gamevalue.cardcolor:
             return
         for id, obj in self.db.items():
             if obj.getGroup() in ("City", "Corp") and obj.getColor() == color:
-                print(obj.getSummary(), end=endchar)
+                print(
+                    highlighter(
+                        obj.getSummary()
+                    ), end=endchar
+                )
                 yield
 
     def printCity(self, color):
