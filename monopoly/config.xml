@@ -41,7 +41,7 @@
     </cell>
     <cell>
         <id>5</id>
-        <name>WealthTax</name>
+        <name>IncomeTax</name>
         <price>0</price>
         <rent>10</rent>
         <group>Tax</group>
@@ -213,7 +213,7 @@
     </cell>
     <cell>
         <id>27</id>
-        <name>IncomeTax</name>
+        <name>WealthTax</name>
         <price>0</price>
         <rent>10</rent>
         <group>Tax</group>

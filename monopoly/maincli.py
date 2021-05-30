@@ -1,11 +1,23 @@
 
 import player
-# import card
 import board
-# import gamevalue
 import processturn
 from utils import highlighter
+from utils import colorText
 
+def printPosition(participants):
+    if not isinstance(participants, tuple): raise TypeError("must pass tuple")
+    print(" "*8, end="")
+    for obj in participants:
+        if not isinstance(obj, player.Player): continue
+        print(
+            " " +
+            colorText(
+                f"{obj.getPosition():02} {obj.getIncome():>5}", obj.name
+            )
+            , end=""
+        )
+    print("")
 
 def main():
     myboard = board.Board('config.xml')
@@ -27,6 +39,7 @@ def main():
             for token in participants:
                 if not token.isActive(): continue
                 gameover += 1
+                printPosition(participants)
                 vartext = f"[{token.getName():6}] {token.getPosition():02} | " + \
                     f"trip {token.getTrip()} round {turn}  " + \
                     f"press enter: "

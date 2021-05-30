@@ -62,10 +62,10 @@ def play(tokenobj, boardobj):
             )
         )
 
-    elif cityobj.getGroup() == "Tax":
-        # calculate tax
-        tax = cityobj.getRent(tokenobj)
-        tokenobj.debit(tax)
+    # elif cityobj.getGroup() == "Tax":
+    #     # calculate tax
+    #     tax = cityobj.getRent(tokenobj)
+    #     tokenobj.debit(tax)
     
     elif cityobj.getOwnerObj() is tokenobj:
         print(
