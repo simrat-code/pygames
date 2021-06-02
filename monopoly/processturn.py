@@ -40,10 +40,17 @@ def play(tokenobj, boardobj):
     
     if cityobj.getName() == "Start":
         # points already credited, do nothing
-        pass
-    
+        pass    
+
     elif cityobj.getGroup() in gamevalue.buyable and cityobj.getOwnerName() == "Banker":
         # ask to buy
+        if not tokenobj.checkBalance(price):
+            print(
+                highlighter(
+                    f'[{tokenobj.getName():6}] insufficient balance'
+                )
+            ) 
+            return
         tokenobj.printInfo()
         choice = input(
             highlighter(
@@ -51,29 +58,18 @@ def play(tokenobj, boardobj):
             )
         )
         if choice not in ('y', 'Y'): return 
-        if tokenobj.checkBalance(price):
-            tokenobj.debit(price)
-            tokenobj.addWealth(price)
-            tokenobj.addOwned(int(pos))
-            cityobj.setOwnerObj(tokenobj)
-        else: print(
-            highlighter(
-                f'[{tokenobj.getName():6}] insufficient balance'
-            )
-        )
-
-    # elif cityobj.getGroup() == "Tax":
-    #     # calculate tax
-    #     tax = cityobj.getRent(tokenobj)
-    #     tokenobj.debit(tax)
-    
+        tokenobj.debit(price)
+        tokenobj.addWealth(price)
+        tokenobj.addOwned(int(pos))
+        cityobj.setOwnerObj(tokenobj)
+           
     elif cityobj.getOwnerObj() is tokenobj:
         print(
             highlighter(
                 f'[{tokenobj.getName():6}] its my city' 
             )
         )
-    
+
     else:
         # pay rent to city owner
         payRent(tokenobj, cityobj, boardobj)
