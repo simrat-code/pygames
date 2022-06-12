@@ -13,11 +13,15 @@ class DesertPoint:
         self.x = x 
         self.y = y 
 
+    def __str__(self):
+        return "{} {}".format(self.x, self.y)
+
     def getXY(self): return (self.x, self.y)
 
 
 
 point = DesertPoint(0, 0)
+datafile = "base_info.txt"
 
 
 def on_click(x, y, button, pressed):
@@ -42,18 +46,21 @@ class DesertActionData:
                         action_timer=10 ) -> None:
 
         self.name = name
-        self.mini_map_xy = mini_map_xy
-        self.action_xy = action_xy
+        self.mini_map_xy = mini_map_xy  # dict{'x': 0, 'y': 0}
+        self.action_xy = action_xy      # dict{'x': 0, 'y': 0}
         self.action_timer = action_timer
 
     def getName(self): return self.name
-    def getMiniMapXY(self): return self.mini_map_xy.getXY()
-    def getActionXY(self): return self.action_xy.getXY()
+    def getMiniMapXY(self): return self.mini_map_xy['x'], self.mini_map_xy['y'] #.getXY()
+    def getActionXY(self): return self.action_xy['x'], self.action_xy['y']    #.getXY()
     def getActionTimer(self): return self.action_timer
 
 
 
 class DesertMain:
+    def __init__(self):
+        self.verify_timer = 5
+
     def trackPosition(self):
         while True:
             print("\rposition {}    ".format(m.position()), end='')
@@ -66,6 +73,8 @@ class DesertMain:
         
         for c in range(1, qty+1):
             x, y = act_obj.getMiniMapXY()
+            # print(f"\n\n {act_obj.getMiniMapXY()} \n\n")
+            # break
             #
             m.click(x, y)
             sleep(1)
@@ -77,7 +86,7 @@ class DesertMain:
             else: self._screenMove(0, 400)
 
             if c == qty: break          # no need to wait, production already started.
-            countdown(act_obj.getActionTimer(), "{}: {}/{}, waiting".format(act_obj.name, c, qty))
+            countdown(act_obj.getActionTimer() - self.verify_timer, "{}: {}/{}, waiting".format(act_obj.name, c, qty))
         print(f"\r[=] production of {act_obj.name}, qty: {qty}, has been completed")
 
 
@@ -90,7 +99,7 @@ class DesertMain:
         #
         countdown(8, "about to CLICK in")
         m.click()
-        countdown(3, "verify production")
+        countdown(self.verify_timer, "verify production")
 
 
     def _screenMove(self, x, y):
@@ -125,12 +134,12 @@ class DesertMain:
                 break
 
         duration = int(input("[=] enter production time: "))
-        qty = int(input("[=] enter quantity: "))
+        # qty = int(input("[=] enter quantity: "))
 
         obj = DesertActionData(name, map_xy, res_xy, duration)
         choice = input("[=] add to list, <y/n>: ")
         if choice in ['y', 'Y']: obj_list.append(obj)
-        self.production(obj, qty)
+        # self.production(obj, qty)
 
 
 class DesertMainEncoder(JSONEncoder):
@@ -140,21 +149,57 @@ class DesertMainEncoder(JSONEncoder):
 
 def options(action_list):    
     print(
-        " \t 1. Simple Clicker \n"
-        " \t 2. Track mouse position \n"
-        " \t 0. Exit \n" )
+        " \t 0. Exit \n" 
+        " \t 1. New Clicker \n"
+        " \t 2. Track mouse position \n", end='')
     for index, obj in enumerate(action_list, start=3):
         print(f" \t {index}. {obj.name}")
     
     return int(input("\n[=] choice: "))
 
+
+def parseDataFile():
+    action_list = []
+    with open(datafile) as jsonfile:
+        jobj = json.load(jsonfile)
+        for key in jobj:
+            print("JSON: ", key)
+            tmp_obj = DesertActionData(**key)
+            print("OBJ : ", tmp_obj)
+            action_list.append(tmp_obj)
+    return action_list
+
+
+def saveDataFile(action_list):
+    if len(action_list) == 0:
+        print(f"[=] action list is empty, not saving... ")
+        return
+
+    print(f"\n\n[=] Save Sequence, displaying list of click-actions")
+    for obj in action_list:
+        print(f"\t {obj.name}")
+    choice = input("[=] do you want to save the list, <y/n>: ")
+    if choice not in ['y', 'Y']: return
+
+    print("saving data ...")
+    with open(datafile, "w") as outfp:
+        json.dump(
+            [obj for obj in action_list], 
+            outfp, 
+            indent=4, 
+            cls=DesertMainEncoder)
+
+
  
 
 if __name__ == "__main__":
-    action_list =[
-        DesertActionData("North Ammo", DesertPoint(1722, 131), DesertPoint(1103,778), 15 ),
-        DesertActionData("NorthEast Breda", DesertPoint(1747, 160), DesertPoint(1340, 622), 30 ),
-    ]
+    action_list = []
+    # action_list =[
+    #     DesertActionData("North Ammo", DesertPoint(1722, 131), DesertPoint(1103,778), 20 ),
+    #     DesertActionData("NorthEast Breda", DesertPoint(1747, 160), DesertPoint(1339, 622), 35 ),
+    # ]
+    print(f"[=] attempt to read {datafile}")
+    action_list = parseDataFile()
 
     try:
         desert = DesertMain()
@@ -177,8 +222,5 @@ if __name__ == "__main__":
         print("[x] exiting...")
     
     finally:
-        print("saving data ...")
-        with open("base_info.txt", "w") as outfp:
-            for obj in action_list:
-                data = json.dumps(obj, cls=DesertMainEncoder, indent=4)
-                json.dump(data, outfp)
+        saveDataFile(action_list)
+        print("[=] ^_^ program terminate ^_^ ")
