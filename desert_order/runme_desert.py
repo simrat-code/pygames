@@ -6,7 +6,7 @@ from json import JSONEncoder
 from pynput import mouse
 
 
-
+is_data_change = False
 
 class DesertPoint:
     def __init__(self, x, y):
@@ -16,7 +16,11 @@ class DesertPoint:
     def __str__(self):
         return "{} {}".format(self.x, self.y)
 
-    def getXY(self): return (self.x, self.y)
+    def __getitem__(self, key):
+        if key == 'x': return self.x 
+        elif key == 'y': return self.y 
+        else: KeyError("Execption: passed key does not exist in DesertPoint object")
+
 
 
 
@@ -37,6 +41,7 @@ def countdown(val, msg="waiting"):
         print(f"\r{msg}: {val}    ", end='')
         sleep(1)
         val -= 1
+    print("\r", " "*40)
 
 
 class DesertActionData:
@@ -51,8 +56,8 @@ class DesertActionData:
         self.action_timer = action_timer
 
     def getName(self): return self.name
-    def getMiniMapXY(self): return self.mini_map_xy['x'], self.mini_map_xy['y'] #.getXY()
-    def getActionXY(self): return self.action_xy['x'], self.action_xy['y']    #.getXY()
+    def getMiniMapXY(self): return self.mini_map_xy['x'], self.mini_map_xy['y'] 
+    def getActionXY(self): return self.action_xy['x'], self.action_xy['y']    
     def getActionTimer(self): return self.action_timer
 
 
@@ -108,7 +113,7 @@ class DesertMain:
         m.mouseUp(button="right")
 
 
-    def simpleClicker(self, obj_list):
+    def newClicker(self, obj_list):
         name = input("action name: ")
         map_xy = DesertPoint(0,0)
         res_xy = DesertPoint(0,0)
@@ -134,12 +139,15 @@ class DesertMain:
                 break
 
         duration = int(input("[=] enter production time: "))
-        # qty = int(input("[=] enter quantity: "))
 
         obj = DesertActionData(name, map_xy, res_xy, duration)
         choice = input("[=] add to list, <y/n>: ")
-        if choice in ['y', 'Y']: obj_list.append(obj)
-        # self.production(obj, qty)
+        if choice in ['y', 'Y']: 
+            obj_list.append(obj)
+            is_data_change = True
+        qty = int(input("[=] enter quantity: "))
+        countdown(duration, "as res already building")
+        self.production(obj, qty)
 
 
 class DesertMainEncoder(JSONEncoder):
@@ -163,9 +171,7 @@ def parseDataFile():
     with open(datafile) as jsonfile:
         jobj = json.load(jsonfile)
         for key in jobj:
-            print("JSON: ", key)
             tmp_obj = DesertActionData(**key)
-            print("OBJ : ", tmp_obj)
             action_list.append(tmp_obj)
     return action_list
 
@@ -173,6 +179,9 @@ def parseDataFile():
 def saveDataFile(action_list):
     if len(action_list) == 0:
         print(f"[=] action list is empty, not saving... ")
+        return
+
+    if not is_data_change:
         return
 
     print(f"\n\n[=] Save Sequence, displaying list of click-actions")
@@ -206,8 +215,8 @@ if __name__ == "__main__":
         choice = options(action_list)
 
         if choice == 1:
-            countdown(10, "starting in")
-            desert.simpleClicker(action_list)
+            countdown(3, "starting in")
+            desert.newClicker(action_list)
         elif choice == 2:
             desert.trackPosition()
         elif choice >= 3 and choice <= len(action_list)+3:
@@ -223,4 +232,4 @@ if __name__ == "__main__":
     
     finally:
         saveDataFile(action_list)
-        print("[=] ^_^ program terminate ^_^ ")
+        print("[=] program terminate \n")
