@@ -90,7 +90,7 @@ class DesertMain:
         map_xy = dp.DesertPoint(0,0)
         res_xy = dp.DesertPoint(0,0)
 
-        print("[=] click on mini-map to see BASE on screen")
+        print("\n\n[=] click on mini-map to see BASE on screen")
         self._mouseListener()
         while True:
             print("[=] Right-Click to accept, else left-click again.")
@@ -101,7 +101,7 @@ class DesertMain:
                 map_xy.x, map_xy.y = u.SD.point.x, u.SD.point.y 
                 break
 
-        print("[=] hover and click, on resource to produce")
+        print("\n\n[=] hover and click, on resource to produce")
         self._mouseListener()
         while True:
             print("[=] Right-Click to accept, else left-click again.")
@@ -112,7 +112,7 @@ class DesertMain:
                 res_xy.x, res_xy.y = u.SD.point.x, u.SD.point.y 
                 break
 
-        duration = int(input("[=] enter production time: "))
+        duration = int(input("\n\n[=] enter production time: "))
 
         obj = DesertActionData(name, map_xy, res_xy, duration)
         choice = input("[=] add to list, <y/n>: ")

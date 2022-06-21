@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import json
+import os
+import glob
 import desert_code as d
 import desert_point as dp
 from time import sleep
@@ -13,6 +15,7 @@ class SD:
     #
     is_data_change = False
     is_success = False              # for misc use, as a flag
+    datapath = "data"
     datafile = "data/base_info.txt"
     point = dp.DesertPoint(0, 0)   # use to save the 'clicking  location'
 
@@ -28,7 +31,30 @@ def on_click(x, y, button, pressed):
     return False
 
 
+def getDataFiles():
+    data = {0: "new file"}
+    for index, f in enumerate(glob.glob(os.path.join(SD.datapath, "*.txt")), start=1):
+        data[index] = f
+
+    while True:
+        for k, v in data.items():
+            print(f"\t {k}. {v}")
+        choice = int(input("\n[=] enter choice: "))
+        try:
+            data[choice]
+        except KeyError: continue
+        else: break
+    if choice == 0:
+        fname = input("enter new data-file name: ").lower()
+        if not fname.endswith(".txt"): fname = fname + ".txt"
+        SD.datafile = os.path.join(SD.datapath, fname)
+        with open(SD.datafile, "w") as fp: pass 
+    else:
+        SD.datafile = data[choice]
+
+
 def parseDataFile():
+    if os.stat(SD.datafile).st_size == 0: return []
     action_list = []
     with open(SD.datafile) as jsonfile:
         jobj = json.load(jsonfile)
