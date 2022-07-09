@@ -33,7 +33,7 @@ def on_click(x, y, button, pressed):
 
 def getDataFiles():
     data = {0: "new file"}
-    for index, f in enumerate(glob.glob(os.path.join(SD.datapath, "*.txt")), start=1):
+    for index, f in enumerate(sorted(glob.glob(os.path.join(SD.datapath, "*.txt"))), start=1):
         data[index] = f
 
     while True:

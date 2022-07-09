@@ -30,7 +30,7 @@ class DesertActionData:
 
 class DesertMain:
     def __init__(self):
-        self.verify_timer = 5
+        self.verify_timer = 3
 
     def trackPosition(self):
         while True:
@@ -113,12 +113,13 @@ class DesertMain:
                 break
 
         duration = int(input("\n\n[=] enter production time: "))
-
         obj = DesertActionData(name, map_xy, res_xy, duration)
-        choice = input("[=] add to list, <y/n>: ")
-        if choice in ['y', 'Y']: 
-            obj_list.append(obj)
-            u.SD.is_data_change = True
+        
+        # choice = input("[=] add to list, <y/n>: ")
+        # if choice in ['y', 'Y']: 
+        obj_list.append(obj)
+        u.SD.is_data_change = True
+
         qty = int(input("[=] enter quantity: "))
         u.countdown(duration, "as res already building")
         self.production(obj, qty)
