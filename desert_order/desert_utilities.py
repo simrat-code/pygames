@@ -89,9 +89,9 @@ def saveDataFile(action_list):
 
 
 
-def countdown(val, msg="waiting"):
+def countdown(val, message="waiting"):
     while val >= 0:
-        print(f"\r{msg}: {val}    ", end='')
+        print(f"\r{message}: {val}    ", end='')
         sleep(1)
         val -= 1
     print("\r", " "*40, end='')
