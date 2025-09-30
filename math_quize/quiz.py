@@ -1,7 +1,20 @@
 import tkinter as tk
 import random
+import os
+from dotenv import load_dotenv
 
-score_threshold = 5
+script_path = os.path.abspath(__file__)
+script_dir = os.path.dirname(script_path)
+# print(f"script_path: {script_path}, dir: {script_dir}")
+
+env_path = os.path.join(script_dir, '.env')
+load_dotenv(dotenv_path=env_path)
+
+score_threshold = int(os.getenv('score_threshold', '5'))
+operator_list = os.getenv('operator_list', "+,-,*").split(',')
+var_a = int(os.getenv('var_a', '10'))
+var_b = int(os.getenv('var_b', '10'))
+# print(operator_list)
 
 class MathQuizApp:
     def __init__(self, root):
@@ -41,13 +54,17 @@ class MathQuizApp:
         self.answer_entry.delete(0, tk.END)
         self.feedback_label.config(text="")
 
-        self.num1 = random.randint(1, 10)
-        self.num2 = random.randint(1, 10)
-        self.operator = random.choice(["+", "-", "*"])
+        self.num1 = random.randint(1, var_a)
+        self.num2 = random.randint(1, var_b)
+        self.operator = random.choice(operator_list)
 
         # Ensure subtraction doesn't go negative
         if self.operator == "-" and self.num1 < self.num2:
             self.num1, self.num2 = self.num2, self.num1
+
+        if self.operator == "*" and (self.num1 > 10 or self.num2 > 10):
+            self.num1 = self.num1 % 10 if self.num1 > 10 else self.num1
+            self.num2 = self.num2 % 10 if self.num2 > 10 else self.num2
 
         self.correct_answer = eval(f"{self.num1} {self.operator} {self.num2}")
         self.question_label.config(text=f"{self.num1} {self.operator} {self.num2} = ?")
